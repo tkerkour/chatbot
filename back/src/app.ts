@@ -10,6 +10,15 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+app.post("/api/chat", (req, res) => {
+  const message = typeof req.body?.message === "string" ? req.body.message.trim() : "";
+  if (!message) {
+    res.status(400).json({ error: "message is required" });
+    return;
+  }
+  res.json({ reply: `Echo : ${message}` });
+});
+
 app.use((_req, res) => {
   res.status(404).json({ error: "Not found" });
 });
